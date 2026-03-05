@@ -45,7 +45,7 @@ python model.py --model lightgbm --n-folds 5
 python model.py --model xgboost --n-folds 5
 
 # Step 4 — Explain the model
-python interpretability.py
+python interpretability.py --n-samples 1000
 ```
 
 ---
