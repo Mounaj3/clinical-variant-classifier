@@ -1,7 +1,7 @@
 """
 download_data.py
 ----------------
-Download ClinVar variant_summary file from NCBI FTP
+Download ClinVar variant_summary file from NCBI 
 and decompress it into data/raw/.
 
 Usage:
@@ -36,18 +36,18 @@ def download_file():
         return
 
     if not os.path.exists(GZ_PATH):
-        print("Downloading ClinVar variant_summary from NCBI FTP...")
+        print("---Downloading ClinVar variant_summary---")
         with DownloadProgressBar(unit="B", unit_scale=True, miniters=1, desc="variant_summary.txt.gz") as t:
             urllib.request.urlretrieve(URL, filename=GZ_PATH, reporthook=t.update_to)
         print(f"Downloaded: {GZ_PATH}")
 
-    print("Decompressing archive...")
+    print("---Decompressing archive---")
     with gzip.open(GZ_PATH, "rb") as f_in:
         with open(TXT_PATH, "wb") as f_out:
             shutil.copyfileobj(f_in, f_out)
     print(f"Saved to: {TXT_PATH}")
 
-    # Quick sanity check
+    # Sanity check
     with open(TXT_PATH, "r") as f:
         header = f.readline().strip().split("\t")
     print(f"\n{len(header)} columns detected.")
